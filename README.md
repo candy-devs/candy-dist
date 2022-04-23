@@ -70,6 +70,9 @@ ssh rollrat@${DistHost} "cd s/dist && npm i --only=prod && sudo pm2 start app.js
 
         location /api {
                 # api server (backend)
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header Host $http_host;
                 proxy_pass http://0.0.0.0:8864;
         }
 ```
